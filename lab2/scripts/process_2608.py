@@ -100,6 +100,9 @@ def process(df, meta):
     v_in = np.sqrt(2 * dp_in / rho)
     df['m_dot_calc'] = rho * A_INLET * v_in
 
+    # 计算流量与实测流量的相对误差
+    df['m_dot_err'] = np.abs(df['m_dot_calc'] - df['m_dot_raw']) / df['m_dot_raw'] * 100
+
     # 进口动压
     df['q_in'] = df['Pti'] - df['PiN']
 
@@ -164,9 +167,9 @@ def make_threeline_table(df, caption, label, columns):
 
 def generate_group_table(df, group_label, condition_text, meta):
     """为单组数据生成详细三线表（7列）"""
-    table_cols = ['throttle_deg', 'Pti', 'PiN', 'Pte', 'Pe', 'DeltaP', 'm_dot_raw']
+    table_cols = ['throttle_deg', 'Pti', 'PiN', 'Pte', 'Pe', 'DeltaP', 'm_dot_raw', 'm_dot_calc', 'm_dot_err']
     col_labels = ['节流阀角度°', '进口总压 (Pa)', '进口静压 (Pa)', '出口总压 (Pa)',
-                  '出口静压 (Pa)', '总压升 (Pa)', '质量流量 (kg/s)']
+                  '出口静压 (Pa)', '总压升 (Pa)', '流量实测 (kg/s)', '流量计算 (kg/s)', '相对误差 (\%)']
 
     caption = f"{group_label} 稳态特性数据——{condition_text} (T={meta['T_atm_C']}°C, P={meta['P_atm']}Pa)"
     label = f"tab:{group_label.lower().replace(' ','_')}"
