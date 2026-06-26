@@ -29,13 +29,15 @@
 
 \begin{itemize}
     \item 低速轴流对转压气机实验台（同实验一）
-    \item Kulite 高频响应动态压力传感器 12支（沿弦向布置：上游6支 + 下游6支）
+    \item Kulite 高频响应动态压力传感器 3 支
     \item 动态信号采集系统（A/D转换，5.12 kHz采样）
     \item 信号放大器与低通滤波器
     \item 节流锥控制系统
 \end{itemize}
 
-传感器沿弦向布置的目的在于考察叶尖压力脉动沿叶片弦向的分布特征，前缘、中弦和尾缘区域的脉动特性有所不同。
+本实验实际使用的传感器布置与指导书原始描述有所不同。3 支动态压力传感器安装于\textbf{下游转子进口}截面的机匣壁面，沿\textbf{周向}布置。具体而言，两支传感器分别位于相邻两片下游转子叶片前缘的正上方，第三支位于两叶片前缘连线中点（即1/2栅距处）的正上方。
+
+传感器周向间距为一个栅距（32.5 mm），其目的在于考察转子叶片通过时产生的周期性压力脉动沿周向的传播特征。相邻叶片前缘处的两个信号具有确定的相位差（对应一个叶片通过周期），中点处的信号则反映两个压力脉动源的叠加效应。
 
 \subsection{实验步骤}
 
@@ -54,13 +56,18 @@
 
 \subsubsection{叶片通过频率 (BPF)}
 
-上、下游转子转速相同时（$n_1 = n_2 = n$）：
+变频器频率 $f_{\text{VFD}}$（Hz）与电机转速 $n$（rpm）的关系为 $n = f_{\text{VFD}} \times 60$。叶片通过频率：
+
 \begin{equation}
-    \text{BPF}_{\text{R1}} = \frac{n}{60} \times 12, \quad
-    \text{BPF}_{\text{R2}} = \frac{n}{60} \times 10
+    \text{BPF}_{\text{R1}} = \frac{n_1}{60} \times N_{\text{R1}} = f_{\text{VFD,1}} \times 12, \quad
+    \text{BPF}_{\text{R2}} = \frac{n_2}{60} \times N_{\text{R2}} = f_{\text{VFD,2}} \times 10
 \end{equation}
 
-以1200 rpm为例：$\text{BPF}_{\text{R1}} = 240$ Hz，$\text{BPF}_{\text{R2}} = 200$ Hz。
+本实验两组转速条件下的 BPF：
+\begin{itemize}
+    \item 前30 Hz/后35 Hz：$\text{BPF}_{\text{R1}} = 30 \times 12 = 360$ Hz，$\text{BPF}_{\text{R2}} = 35 \times 10 = 350$ Hz
+    \item 前28 Hz/后37 Hz：$\text{BPF}_{\text{R1}} = 28 \times 12 = 336$ Hz，$\text{BPF}_{\text{R2}} = 37 \times 10 = 370$ Hz
+\end{itemize}
 
 \subsubsection{傅里叶变换 (FFT)}
 
@@ -74,49 +81,65 @@
     |X(k)|_{\text{one-sided}} = \frac{2|X(k)|}{N}, \quad k = 1, 2, \dots, \frac{N}{2}-1
 \end{equation}
 
-频率分辨率 $\Delta f = f_s / N$，其中 $f_s = 5120$ Hz 为采样频率，$N = 51200$ 为采样点数（10 s数据）。
+频率分辨率 $\Delta f = f_s / N$，其中 $f_s = 5120$ Hz 为采样频率，每组数据采集约 $N = 128512$ 点（约25 s），频率分辨率约 0.04 Hz。
 
 \subsection{数据处理结果及分析}
+
+实验在四组工况下进行，分别为两种转速组合（前30 Hz后35 Hz、前28 Hz后37 Hz）在两种节流状态（全开90\textdegree{}和近失速15\textdegree{}）下的测量。原始数据文件命名格式为 \texttt{08-前频率-后频率-节流角.txt}。
+
+\subsubsection{信号统计量}
+
+\input{tables/table_dynamic_stats.tex}
+
+表~\ref{tab:dynamic_stats} 列出了四组工况下三个测点的压力信号统计量。可以观察到：
+\begin{enumerate}
+    \item 近失速工况（15\textdegree{}）下压力脉动的 RMS 和峰峰值远大于全开工况（90\textdegree{}）。以30/35 Hz组为例，探针1的RMS从179 Pa 增大到373 Pa，峰峰值从540 Pa 增大到3321 Pa，增幅分别达108\% 和515\%。
+    \item 两种转速组合在相同节流角下的脉动统计量接近，表明脉动强度主要受节流状态（流量）影响，而转速组合差异的影响相对较小。
+    \item 全开工况下三个探针的均值均为负值（$-120\sim-200$ Pa），而近失速工况下为正值（$170\sim260$ Pa），反映了两种状态下下游转子进口截面压力水平的差异。
+\end{enumerate}
 
 \subsubsection{时域信号}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/exp2_time_domain.png}
-    \caption{不同转速下非定常压力时域信号（前50 ms）}
+    \includegraphics[width=\textwidth]{figures/exp2_dynamic_time_domain.png}
+    \caption{四组工况下动态压力时域信号对比（前30 ms）}
     \label{fig:time}
 \end{figure}
 
-图~\ref{fig:time} 展示了三个转速下采集到的典型时域压力脉动信号。可以看出：
+图~\ref{fig:time} 展示了四组工况下前 30 ms 的时域信号。可以观察到：
 \begin{enumerate}
-    \item 信号呈现明显的周期性脉动特征，周期与转子转速和叶片数密切相关。
-    \item 高转速下脉动幅值显著增大，反映叶尖与机匣的相干作用随转速增强。
-    \item 在一个转子通过周期内可观察到多个压力峰，与多个叶片依次通过有关。
+    \item 近失速工况（15\textdegree{}）下信号幅值显著大于全开工况（90\textdegree{}），三种探针的波形高度一致，表明周向布置的三个测点都感受到了相似的周期性压力脉动。
+    \item 全开工况下信号幅值较小、波形较为平坦，表明此时下游转子进口的流动较为均匀，叶片与端壁的相干作用较弱。
+    \item 两转速组合的波形特征相似，说明转速在28\textasciitilde30 Hz范围内的变化不显著改变脉动的时域结构。
 \end{enumerate}
 
-\subsubsection{频域信号}
+\subsubsection{频域信号与BPF分析}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/exp2_frequency_domain.png}
-    \caption{不同转速下非定常压力频域图（FFT幅值谱）}
+    \includegraphics[width=\textwidth]{figures/exp2_dynamic_frequency_domain.png}
+    \caption{四组工况下 FFT 幅值谱（0\textasciitilde1500 Hz，探针1）}
     \label{fig:freq}
 \end{figure}
 
-图~\ref{fig:freq} 展示了FFT变换后的频域结果。可以看出：
+\input{tables/table_bpf_analysis.tex}
+
+图~\ref{fig:freq} 和表~\ref{tab:bpf_analysis} 给出了FFT分析结果。可以看出：
 \begin{enumerate}
-    \item 频谱在 BPF 及其谐波频率（$2\times\text{BPF}$、$3\times\text{BPF}$）处出现明显峰值。
-    \item 基频（BPF）的幅值最大，谐波幅值递减，符合周期性信号的频谱特征。
-    \item 1200 rpm时观察到240 Hz（R1基频）和200 Hz（R2基频）两个独立峰值，与两排转子的不同叶片数对应。
-    \item 转速升高时，各频率成分的幅值均增大，表明压力脉动强度增强。
+    \item 四组工况的频谱中均能清晰识别出 BPF 基频及其谐波（$2\times\text{BPF}$、$3\times\text{BPF}$）。实测峰值频率与理论 BPF 高度吻合，验证了传感器布置和信号采集的准确性。
+    \item 近失速工况下 BPF 峰值幅值远大于全开工况，反映叶片通过时产生的压力扰动强度随压气机负荷增大而显著增强。
+    \item 两种转速组合在频谱中均同时出现上下游两个转子的 BPF 成分（如30/35 Hz组的360 Hz和350 Hz），且R1（上游转子，12叶片）的 BPF 幅值普遍大于R2（下游转子，10叶片），可能是因为上游转子对下游进口流场仍具有显著的位势干涉效应。
+    \item 在近失速工况的频谱中，除BPF谐波外还出现了一定的宽带噪声底板抬高现象，反映压气机在接近失速时流动中随机脉动成分的增加。
 \end{enumerate}
 
 \subsubsection{结果讨论}
 
 \begin{enumerate}
-    \item \textbf{压力脉动频率的影响因素}：主要由转子转速和叶片数决定（$\text{BPF} = n/60 \times N$）。此外还受转子-转子干涉、叶尖间隙大小、来流湍流度等因素影响。对转压气机中两排转子反向旋转，产生更复杂的干涉频率成分。
-    \item \textbf{弦向分布特征}：前缘附近传感器测得的脉动更为剧烈，因为叶尖泄漏涡在前缘附近生成；中弦和后缘区域的脉动相对稳定。
-    \item \textbf{频谱分析的意义}：FFT分析可识别压气机运行状态的变化。当出现异常频率成分（如半频、亚谐波等）时，往往预示旋转失速等不稳定现象的发生。
+    \item \textbf{节流状态对脉动强度的影响}：从全开（90\textdegree{}）到近失速（15\textdegree{}），压力脉动大幅增强。这是因为随着节流锥推进、流量减小，叶片负荷增大，叶尖泄漏流增强，叶片与端壁的相干作用加剧。
+    \item \textbf{周向分布与相位关系}：三个周向布置的探针测得的时域信号波形高度一致，但在细节上存在相位差。相位差反映了压力扰动沿周向的传播特征，与转子的旋转方向一致。
+    \item \textbf{对转布局的频率特征}：对转压气机中两排转子反向旋转，BPF频率分别为 $f_1 N_1$ 和 $f_2 N_2$。此外两排转子的相对运动还可能产生差频成分（$|f_1 N_1 - f_2 N_2|$），本实验中30/35 Hz组的差频为 $|360-350| = 10$ Hz，28/37 Hz组为 $|336-370| = 34$ Hz。
+    \item \textbf{频谱分析的应用价值}：FFT分析可实时监测压气机运行状态。近失速时宽带噪声底板的抬高可作为失速预警的参考指标，而异常频率成分（如亚谐波）的出现则直接指示不稳定流动的发生。
 \end{enumerate}
 
 \subsection{思考题}
@@ -134,4 +157,4 @@
 
 \subsection{结论}
 
-成功采集了不同转速和工况下的叶顶动态压力信号，通过FFT分析获得了清晰的BPF频谱特征，验证了压力脉动频率与转速、叶片数的定量关系：$\text{BPF} = n/60 \times N$。频谱分析清晰地分辨出上游转子（12叶片）和下游转子（10叶片）各自的通过频率及其谐波成分。掌握了动态压力测量和频谱分析的基本方法，为后续压气机非定常流动机理研究奠定了基础。
+使用3支周向布置的Kulite动态压力传感器，在下游转子进口截面成功采集了四组工况（两种转速组合$\times$两种节流状态）下的非定常压力信号。FFT分析在四组工况的频谱中均清晰识别出上、下游转子各自的BPF及其谐波，实测峰值频率与理论BPF高度吻合，验证了$\text{BPF} = f_{\text{VFD}} \times N$的定量关系。实验结果表明，节流状态（流量）对压力脉动强度的影响远大于转速组合差异：近失速工况（15\textdegree{}）下的脉动RMS和峰峰值约为全开工况（90\textdegree{}）的2倍和5\textasciitilde7倍。掌握了动态压力信号的采集、FFT分析和BPF识别的基本方法。
