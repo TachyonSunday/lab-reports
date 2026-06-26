@@ -279,7 +279,6 @@ def main():
     # ── 统计量表格 ──────────────────────────────
     rows = []
     for label, result in all_results.items():
-        info = result['info']
         stats = result['stats']
         for ch_name, s in stats.items():
             rows.append([label, ch_name, s['mean'], s['rms'], s['peak_to_peak']])
@@ -297,22 +296,16 @@ def main():
     # ── BPF 汇总表 ──────────────────────────────
     rows = []
     for label, result in all_results.items():
-        info = result['info']
         bpf_f = result['bpf_front']
         bpf_r = result['bpf_rear']
-        # 找 BPF 附近的实际峰值
-        xf, mag = compute_fft(result['data'], result['meta']['fs'], ch_idx=1)
+        xf1, mag1 = compute_fft(result['data'], result['meta']['fs'], ch_idx=1)
         for bpf, rotor in [(bpf_f, 'R1(上游)'), (bpf_r, 'R2(下游)')]:
-            idx = np.argmin(np.abs(xf - bpf))
-            actual_f = xf[idx]
-            actual_mag = mag[idx]
-            # 在 ±5Hz 范围内找实际峰值
-            nearby = (xf >= bpf - 5) & (xf <= bpf + 5)
+            nearby = (xf1 >= bpf - 5) & (xf1 <= bpf + 5)
             if nearby.any():
-                peak_idx = np.argmax(mag[nearby])
-                actual_f = xf[nearby][peak_idx]
-                actual_mag = mag[nearby][peak_idx]
-            rows.append([label, rotor, bpf, actual_f, actual_mag])
+                peak_idx = np.argmax(mag1[nearby])
+                actual_f = xf1[nearby][peak_idx]
+                actual_mag = mag1[nearby][peak_idx]
+                rows.append([label, rotor, bpf, actual_f, actual_mag])
 
     table_tex = make_threeline_table(
         rows,
