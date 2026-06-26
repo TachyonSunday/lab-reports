@@ -1,0 +1,32 @@
+﻿# 进气畸变条件压气机性能实验 — 数据记录表
+# 记录均匀进气和畸变进气（加插板后）两种条件下的测量数据
+# 进口截面直径 D = 0.502 m
+#
+# condition: uniform（均匀进气） 或 distorted（畸变进气）
+# distorter_type: none（无）/ 30deg_sector（30°扇形）/ 75deg_crescent（75°月牙形）/ 90deg_crescent（90°月牙形）
+#
+condition,distorter_type,speed_rpm,throttle_pos,P_in_total(Pa),P_in_static(Pa),P_out_total(Pa),P_out_static(Pa),P_atm(Pa),T_atm(K)
+uniform,none,1200,,,,,,,
+uniform,none,1200,,,,,,,
+uniform,none,1200,,,,,,,
+uniform,none,1200,,,,,,,
+uniform,none,1200,,,,,,,
+uniform,none,1200,,,,,,,
+uniform,none,1200,,,,,,,
+uniform,none,1200,,,,,,,
+distorted,30deg_sector,1200,,,,,,,
+distorted,30deg_sector,1200,,,,,,,
+distorted,30deg_sector,1200,,,,,,,
+distorted,30deg_sector,1200,,,,,,,
+distorted,30deg_sector,1200,,,,,,,
+distorted,30deg_sector,1200,,,,,,,
+distorted,30deg_sector,1200,,,,,,,
+distorted,30deg_sector,1200,,,,,,,
+distorted,75deg_crescent,1200,,,,,,,
+distorted,75deg_crescent,1200,,,,,,,
+distorted,75deg_crescent,1200,,,,,,,
+distorted,75deg_crescent,1200,,,,,,,
+distorted,75deg_crescent,1200,,,,,,,
+distorted,75deg_crescent,1200,,,,,,,
+distorted,75deg_crescent,1200,,,,,,,
+distorted,75deg_crescent,1200,,,,,,,

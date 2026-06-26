@@ -1,0 +1,26 @@
+# 指导书（版权材料，不上传）
+lab1/航空发动机实验指导书-2023.pdf
+lab2/本科生实验课指导书汇总.pdf
+
+# Python
+__pycache__/
+*.pyc
+
+# LaTeX 编译临时文件
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# 编译输出的 PDF（含个人信息，不提交）
+lab1/reports/lab1_report.pdf
+lab2/reports/lab2_report.pdf

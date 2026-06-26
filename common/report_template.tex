@@ -1,0 +1,112 @@
+% ═══════════════════════════════════════════════════════════════
+% 实验报告通用模板 — 合并报告版
+% 基于 ctexart，支持中文，用 XeLaTeX 编译
+%
+% 用法：在主报告 .tex 中 \input{../../common/report_template}
+%       然后 \include{chapters/expX_xxx}
+% ═══════════════════════════════════════════════════════════════
+\documentclass[12pt,a4paper]{ctexart}
+
+% ── 页边距 ──────────────────────────────────────
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.5cm]{geometry}
+
+% ── 数学与符号 ──────────────────────────────────
+\usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+% \usepackage{upgreek}  % 直立体希腊字母 (TinyTeX 不可用)
+
+% ── 图表 ────────────────────────────────────────
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{caption}
+% \usepackage{subcaption}  % (TinyTeX 不可用，caption 已含基本功能)
+
+% ── 超链接 ──────────────────────────────────────
+\usepackage[hidelinks]{hyperref}
+
+% ── 枚举 ────────────────────────────────────────
+\usepackage{enumitem}
+\setlist{nosep, leftmargin=2em}
+
+% ── 页眉页脚 ────────────────────────────────────
+\usepackage{fancyhdr}
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\leftmark}
+\fancyhead[R]{\small\studentName\quad\studentId}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ── 标题格式 ────────────────────────────────────
+\ctexset{
+    section/format = \Large\bfseries,
+    subsection/format = \large\bfseries,
+    subsubsection/format = \normalsize\bfseries,
+}
+
+% ── 图表编号：按实验（节）编号 ─────────────────
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+\numberwithin{equation}{section}
+
+% ── 封面变量 ────────────────────────────────────
+\newcommand{\uniName}{西北工业大学}
+\newcommand{\collegeName}{动力与能源学院}
+\newcommand{\courseName}{实验课程名称}
+\newcommand{\studentName}{姓名}
+\newcommand{\studentId}{学号}
+\newcommand{\studentClass}{班级}
+\newcommand{\expDate}{年\ 月\ 日}
+\newcommand{\teacherName}{指导教师}
+
+% ── 封面命令 ────────────────────────────────────
+\newcommand{\makeCover}{
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+
+    % 校徽（如无文件则跳过）
+    \IfFileExists{../../common/nwpu_logo.png}{
+        \includegraphics[height=3cm]{../../common/nwpu_logo.png}
+        \vspace{0.5cm}
+    }{}
+
+    {\LARGE\bfseries\uniName\par}
+    \vspace{0.2cm}
+    {\Large\collegeName\par}
+
+    \vspace{2.5cm}
+
+    {\huge\bfseries 实验报告\par}
+    \vspace{1.2cm}
+
+    {\Large\courseName\par}
+    \vspace{1cm}
+
+    % 信息表格
+    \begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{2.0}
+    \begin{tabular}{rl}
+        \textbf{班\qquad 级：} & \studentClass \\
+        \textbf{学\qquad 号：} & \studentId \\
+        \textbf{姓\qquad 名：} & \studentName \\
+        \textbf{实验日期：} & \expDate \\
+        \textbf{指导教师：} & \teacherName \\
+    \end{tabular}
+    \end{table}
+
+    \vfill
+    \today
+\end{titlepage}
+}
+
+% ── 目录页设置 ──────────────────────────────────
+\newcommand{\makeTOC}{
+    \tableofcontents
+    \newpage
+    \setcounter{page}{1}
+}

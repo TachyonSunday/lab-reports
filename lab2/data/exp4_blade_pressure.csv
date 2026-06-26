@@ -1,0 +1,48 @@
+﻿# 平面叶栅叶片表面压力分布测量 — 数据记录表
+# 叶片表面沿中弧线 6 个位置 (x/b = 1/7, 2/7, 3/7, 4/7, 5/7, 6/7) 的静压测量
+#
+# attack_angle: 攻角 i (°)，实验在 i = -5°, 0°, +5° 三个攻角下进行
+# side: suction（叶背/吸力面）或 pressure（叶盆/压力面）
+# x_b: 中弧线相对位置
+# P_in_total: 进口总压 P1* (Pa) — 同一攻角下所有测点共用，填在第一行即可
+# P_static: 叶片表面静压 (Pa)
+# P_atm: 大气压力 (Pa)
+# T_atm: 大气温度 (K)
+#
+attack_angle(deg),side,x_b,P_in_total(Pa),P_static(Pa),P_atm(Pa),T_atm(K)
+0,suction,0.142857,,,,,
+0,suction,0.285714,,,,,
+0,suction,0.428571,,,,,
+0,suction,0.571429,,,,,
+0,suction,0.714286,,,,,
+0,suction,0.857143,,,,,
+0,pressure,0.142857,,,,,
+0,pressure,0.285714,,,,,
+0,pressure,0.428571,,,,,
+0,pressure,0.571429,,,,,
+0,pressure,0.714286,,,,,
+0,pressure,0.857143,,,,,
+-5,suction,0.142857,,,,,
+-5,suction,0.285714,,,,,
+-5,suction,0.428571,,,,,
+-5,suction,0.571429,,,,,
+-5,suction,0.714286,,,,,
+-5,suction,0.857143,,,,,
+-5,pressure,0.142857,,,,,
+-5,pressure,0.285714,,,,,
+-5,pressure,0.428571,,,,,
+-5,pressure,0.571429,,,,,
+-5,pressure,0.714286,,,,,
+-5,pressure,0.857143,,,,,
+5,suction,0.142857,,,,,
+5,suction,0.285714,,,,,
+5,suction,0.428571,,,,,
+5,suction,0.571429,,,,,
+5,suction,0.714286,,,,,
+5,suction,0.857143,,,,,
+5,pressure,0.142857,,,,,
+5,pressure,0.285714,,,,,
+5,pressure,0.428571,,,,,
+5,pressure,0.571429,,,,,
+5,pressure,0.714286,,,,,
+5,pressure,0.857143,,,,,

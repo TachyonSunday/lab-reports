@@ -1,0 +1,130 @@
+% !TEX root = ../lab1_report.tex
+% ==========================================================
+% 实验一：发动机模拟试车实验
+% ==========================================================
+\section{实验一：发动机模拟试车实验}
+
+\subsection{实验目的}
+
+\begin{enumerate}
+    \item 通过本实验使学生了解发动机特性的实验方法和实验过程，掌握发动机主要性能参数的测量和数据处理方法，同时进一步加深学生对发动机特性知识的认识。
+    \item 确定下列发动机特性曲线：
+    \begin{itemize}
+        \item \textbf{节流特性曲线（必做）}
+        \begin{align*}
+            F &= f(n_{1\text{cor}}) & \alpha_1 &= f(n_{1\text{cor}}) \\
+            \pi_c^* &= f(n_{2\text{cor}}) & \alpha_2 &= f(n_{2\text{cor}}) \\
+            F &= f(n_{2\text{cor}}) & \text{sfc} &= f(n_{2\text{cor}}) \\
+            m_a &= f(n_{2\text{cor}}) & T_4^* &= f(n_{2\text{cor}})
+        \end{align*}
+        \item \textbf{加力特性曲线（选做）}
+        \begin{align*}
+            F_{af} &= f(\text{油门杆位置}) \\
+            \text{sfc}_{af} &= f(\text{油门杆位置}) \\
+            A_e &= f(\text{油门杆位置})
+        \end{align*}
+    \end{itemize}
+    \item 能力培养：实际试验操作能力、团结协作能力、综合应用能力。
+\end{enumerate}
+
+\subsection{实验装置}
+
+该实验装置是一套发动机模拟试车系统，根据发动机地面台架试车台的功能进行模拟仿真，试车操作界面与实际发动机试车台基本相同。系统由油门杆、控制操作面板和计算机系统组成。
+
+进行模拟试车的目的一方面为了取得发动机特性的具体试验数据，另一方面也为学生今后进行真实发动机开车试验积累实践经验，因此学生必须像对待真实发动机试车那样严肃认真。
+
+主要测量参数：
+\begin{itemize}
+    \item 大气参数：$P_0$（大气压力）、$T_0$（大气温度）
+    \item 性能参数：$F$（推力）、$W_f$（燃油消耗量）、$m_a$（空气流量）
+    \item 转子参数：$n_1$（低压转子转速）、$n_2$（高压转子转速）
+    \item 截面参数：$P_2^*$、$T_2^*$（风扇出口）、$P_3^*$、$T_3^*$（压气机出口）、$P_5^*$、$T_5^*$（涡轮后）
+    \item 控制参数：$\alpha_1$、$\alpha_2$（导流叶片角度）、$A_t$（喷口喉道面积）
+\end{itemize}
+
+\subsection{实验程序}
+
+\begin{enumerate}
+    \item 三到五人结为一组，明确各人的具体分工。
+    \item 试车前认真学习《实验指导书》。
+    \item 熟悉试车程序和试验设备情况。
+    \item 准备好试车参数记录所需要的纸张和笔。
+    \item 严格按要求起动发动机，并通过油门操纵杆控制发动机进入不同的工作状态。
+    \item 当发动机稳定在某一发动机状态时，按记录表记录发动机性能数据。
+    \item 试验结束前对记录数据进行检查，对没有记录或记录数据不正确的个别测量点进行补测。
+    \item 试验结束后整理好试验设备。
+\end{enumerate}
+
+\subsection{数据记录}
+
+实验数据按附表1格式记录，包含慢车状态至加力状态共11个工作状态的完整参数。各工作状态依次为：慢车、N2=75\%、80\%、85\%、90\%、95\%、97\%、最大状态、加力状态（$a=0,1,2,3,4$）。
+
+\subsection{数据处理方法}
+
+\subsubsection{折合转速换算}
+
+\begin{equation}
+    n_{\text{cor}} = n \sqrt{\frac{288.15}{T_0}}
+\end{equation}
+
+\subsubsection{耗油率计算}
+
+\begin{equation}
+    \text{sfc} = \frac{W_f}{F}
+\end{equation}
+
+\subsubsection{压气机总压比}
+
+\begin{equation}
+    \pi_c^* = \frac{P_3^*}{P_2^*}
+\end{equation}
+
+\subsection{数据处理结果及分析}
+
+\subsubsection{节流特性曲线}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/exp1_throttle_characteristics.png}
+    \caption{发动机节流特性曲线}
+    \label{fig:throttle}
+\end{figure}
+
+\subsubsection{加力特性曲线}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/exp1_afterburner_characteristics.png}
+    \caption{发动机加力特性曲线}
+    \label{fig:afterburner}
+\end{figure}
+
+\subsubsection{节流特性分析}
+
+\begin{enumerate}
+    \item 推力 $F$ 随转速增大呈非线性增长，在较高转速区推力增速更快。这是因为涡扇发动机推力近似与转速的三次方成正比，高转速下空气质量流量和单位推力均显著增大。
+    \item 耗油率 sfc 在中等转速区域存在最优值，低转速下因部件效率降低导致 sfc 升高，高转速下因燃烧室油气比增大也使 sfc 增大。
+    \item 压气机总压比 $\pi_c^*$ 随转速单调增加，反映压气机增压能力随转速增大而增强，符合离心力增压的基本原理。
+    \item 空气流量 $m_a$ 随转速近似线性增长，进口导流叶片角度 $\alpha_1$、$\alpha_2$ 随转速减小以保持各级攻角在合理范围。
+    \item 涡轮后总温 $T_4^*$ 随转速升高，反映燃烧室供油量随推力需求增大而增加。
+\end{enumerate}
+
+\subsubsection{加力特性分析}
+
+\begin{enumerate}
+    \item 加力状态下推力大幅增加（可达30\%\textasciitilde60\%），同时耗油率显著恶化（约为非加力状态的2\textasciitilde3倍）。
+    \item 喷口面积 $A_e$ 需随加力燃油量相应调大，以维持发动机各截面参数匹配，防止压气机进入失速。
+    \item 加力主要用于起飞、爬升、加速和超音速飞行等需要大推力的短时工况。
+\end{enumerate}
+
+\subsection{注意事项}
+
+\begin{enumerate}
+    \item 实验时，学生必须听从教师和实验室人员的指挥。未经同意，禁止学生自行操作实验室设备，以防发生意外。
+    \item 学生应细心操作实验系统的所有设备，爱护各种实验器材和测量仪表。
+    \item 本项实验为一大型试验项目的模拟设备，所有参加实验课的人员必须认真负责，实验中团结协作，做好各自的工作。
+\end{enumerate}
+
+\subsection{结论}
+
+通过本次发动机模拟试车实验，掌握了发动机节流特性和加力特性的实验测量与数据分析方法。实验结果表明发动机各性能参数的变化规律符合涡扇发动机热力循环的基本原理，加深了对发动机特性知识的理解。
