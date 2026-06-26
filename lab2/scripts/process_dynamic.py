@@ -221,12 +221,12 @@ def main():
             ax.plot(t_plot, data[mask, ch], linewidth=0.5,
                     color=colors_probe[ch - 1], label=f'探针{ch}')
         ax.set_ylabel("压力 (Pa)")
-        ax.set_title(label, fontsize=10)
-        ax.legend(fontsize=7, ncol=3)
+        ax.set_title(label, fontsize=13)
+        ax.legend(fontsize=10, ncol=3)
         ax.grid(True, alpha=0.3)
 
     axes[-1].set_xlabel("时间 (ms)")
-    fig.suptitle("动态压力时域信号（前 30 ms）", fontsize=13)
+    fig.suptitle("动态压力时域信号（前 30 ms）", fontsize=16)
     fig.tight_layout()
     plot_style.save_figure(fig, os.path.join(FIG_DIR, "exp2_dynamic_time_domain"), ("png",))
     print("  ✓ 时域图已保存")
@@ -266,12 +266,12 @@ def main():
                        fontsize=7, color=color, fontweight='bold')
 
         ax.set_ylabel("幅值")
-        ax.set_title(label, fontsize=10)
-        ax.legend(fontsize=7, ncol=3, loc='upper right')
+        ax.set_title(label, fontsize=13)
+        ax.legend(fontsize=10, ncol=3, loc='upper right')
         ax.grid(True, alpha=0.3)
 
     axes[-1].set_xlabel("频率 (Hz)")
-    fig.suptitle("动态压力频域图（FFT 幅值谱，0-1500 Hz）", fontsize=13)
+    fig.suptitle("动态压力频域图（FFT 幅值谱，0-1500 Hz）", fontsize=16)
     fig.tight_layout()
     plot_style.save_figure(fig, os.path.join(FIG_DIR, "exp2_dynamic_frequency_domain"), ("png",))
     print("  ✓ 频域图已保存")
