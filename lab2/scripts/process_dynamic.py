@@ -263,7 +263,7 @@ def main():
                 if f_h <= 1500:
                     ax.axvline(f_h, color=color, linestyle='--', alpha=0.35, linewidth=0.6)
             ax.annotate(bpf_label, xy=(bpf, max_mag * y_pos),
-                       fontsize=7, color=color, fontweight='bold')
+                       fontsize=11, color=color, fontweight='bold')
 
         ax.set_ylabel("幅值")
         ax.set_title(label, fontsize=13)
