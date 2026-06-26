@@ -58,12 +58,12 @@ def apply_style():
         # 字体
         "font.family": "sans-serif",
         "font.sans-serif": [_SERIF_FONT, "DejaVu Sans"],
-        "font.size": 10,
-        "axes.titlesize": 12,
-        "axes.labelsize": 11,
-        "xtick.labelsize": 9,
-        "ytick.labelsize": 9,
-        "legend.fontsize": 9,
+        "font.size": 12,
+        "axes.titlesize": 15,
+        "axes.labelsize": 14,
+        "xtick.labelsize": 12,
+        "ytick.labelsize": 12,
+        "legend.fontsize": 12,
 
         # 图表尺寸（适合 A4 报告）
         "figure.figsize": (6.5, 4.0),
