@@ -78,8 +78,8 @@ def plot_pressure_distribution(df, group_label):
             ax.plot(sd["x_b"], P_abs, marker, label=label, markersize=6)
         ax.set_xlabel("$x/b$")
         ax.set_ylabel("$P$ (Pa)")
-        ax.set_title(f"攻角 $i = {alpha}°$", fontsize=14)
-        ax.legend(fontsize=12)
+        ax.set_title(f"攻角 $i = {alpha}°$", fontsize=16)
+        ax.legend(fontsize=14)
         ax.grid(True, alpha=0.3)
     fig.tight_layout()
     fname = f"exp4_pressure_{group_label.replace(' ','_')}"
@@ -102,8 +102,8 @@ def plot_mach_distribution(df, group_label):
             ax.plot(sd["x_b"], Ma, marker, label=label, markersize=6)
         ax.set_xlabel("$x/b$")
         ax.set_ylabel("$Ma$")
-        ax.set_title(f"攻角 $i = {alpha}°$", fontsize=14)
-        ax.legend(fontsize=12)
+        ax.set_title(f"攻角 $i = {alpha}°$", fontsize=16)
+        ax.legend(fontsize=14)
         ax.grid(True, alpha=0.3)
     fig.tight_layout()
     fname = f"exp4_mach_{group_label.replace(' ','_')}"
