@@ -109,6 +109,10 @@ def generate_tables(df):
         fname = f"table_exp6_{group.replace(' ','_')}.tex"
         with open(os.path.join(TABLE_DIR, fname), "w", encoding="utf-8") as f:
             f.write("\n".join(lines))
+        # 同时生成 body-only 版本（用于 minipage 并排）
+        body_name = f"table_exp6_{group.replace(' ','_')}_body.tex"
+        with open(os.path.join(TABLE_DIR, body_name), "w", encoding="utf-8") as f:
+            f.write("\n".join(lines[1:-1]))  # 去掉首尾的 \begin{table} \end{table}
         print(f"  ✓ 表格: {fname}")
 
 
