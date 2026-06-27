@@ -55,36 +55,21 @@
 
 \subsubsection{标定系数定义}
 
-首先计算孔1和孔3的平均压力：
-\begin{equation}
-    P_{\text{avg}} = \frac{P_1 + P_3}{2}
-\end{equation}
+\begin{align}
+    K_\alpha &= \frac{P_3 - P_1}{2P_2 - P_3 - P_1} \\[4pt]
+    K_t &= \frac{P^* - P_2}{2P_2 - P_3 - P_1} \\[4pt]
+    K_v &= \frac{P^* - P}{2P_2 - P_3 - P_1}
+\end{align}
 
-\subsubsection{方向标定系数 $K_\alpha$}
-
-\begin{equation}
-    K_\alpha = \frac{P_1 - P_3}{P_2 - P_{\text{avg}}}
-\end{equation}
-
-$K_\alpha$ 反映左右两孔的压力差与中心孔动压的相对关系，与迎角 $\alpha$ 近似呈线性关系。$K_\alpha = 0$ 时对应 $\alpha = 0\textdegree$（孔2正对来流）。
-
-\subsubsection{总压标定系数 $K_t$}
-
-\begin{equation}
-    K_t = \frac{P_t - P_2}{P_2 - P_{\text{avg}}}
-\end{equation}
-
-$K_t$ 反映探针测得的中心孔总压与真实来流总压的偏差。
-
-\subsubsection{速度标定系数 $K_v$}
-
-\begin{equation}
-    K_v = \frac{P_t - P_s}{P_2 - P_{\text{avg}}}
-\end{equation}
-
-$K_v$ 反映来流动压与中心孔动压的关系。
+式中 $P_1$、$P_2$、$P_3$ 为三孔探针各孔压力，$P^*$ 为风洞来流总压，$P$ 为来流静压。$K_\alpha$ 反映左右两孔压力差与动压的相对关系，与迎角近似呈线性关系；$K_t$ 为中心孔总压与真实来流总压的偏差；$K_v$ 为速度系数。
 
 \subsection{数据处理结果及分析}
+
+\subsubsection{实验数据}
+
+实验在来流马赫数 0.2 条件下进行，偏航角范围 $-25° \sim +25°$，间隔 $5°$。大气环境数据及风洞来流条件见表格标题。
+
+\input{tables/table_exp7_calibration.tex}
 
 \subsubsection{标定曲线}
 
