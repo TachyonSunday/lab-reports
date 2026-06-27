@@ -105,48 +105,61 @@
 
 \subsection{数据处理结果及分析}
 
-\subsubsection{静压系数分布}
+实验测量了两组风机频率（50 Hz 和 45.05 Hz），每组在三个攻角（$-5°$，$0°$，$+5°$）下采集叶片表面6个位置的静压数据。表中各符号含义：$P$ 为叶片表面绝对静压，$\overline{P}$ 为按 $\overline{P} = (P-P_1)/(P_1^*-P_1)$ 计算的归一化静压，$P_1$ 为进口截面静压，$P_1^*$ 为进口截面总压。
+
+\subsubsection{50 Hz 实验数据}
+
+\input{tables/table_exp4_50Hz_-5.tex}
+\input{tables/table_exp4_50Hz_0.tex}
+\input{tables/table_exp4_50Hz_5.tex}
+
+\subsubsection{45.05 Hz 实验数据}
+
+\input{tables/table_exp4_45.05Hz_-5.tex}
+\input{tables/table_exp4_45.05Hz_0.tex}
+\input{tables/table_exp4_45.05Hz_5.tex}
+
+\subsubsection{叶片表面静压分布}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/exp4_cp_distribution.png}
-    \caption{叶片表面静压系数分布（-5\textdegree, 0\textdegree, +5\textdegree~攻角）}
-    \label{fig:cp}
+    \includegraphics[width=\textwidth]{figures/exp4_pressure_50Hz.png}
+    \caption{叶片表面静压分布（50 Hz）}
+    \label{fig:pressure_50}
 \end{figure}
 
-图~\ref{fig:cp} 展示了三个攻角下吸力面和压力面沿弦向的 $C_p$ 分布。可以看出：
-\begin{enumerate}
-    \item 吸力面 $C_p$ 为负值（相对于进口静压为低压），压力面 $C_p$ 为正值（高压），两者之差构成叶片的气动负荷。
-    \item 吸力面前缘（$x/b = 1/7$）附近 $C_p$ 出现最低值（吸力峰），气流在此处达到最大加速。
-    \item 从 $x/b = 2/7$ 开始，吸力面 $C_p$ 逐渐回升（逆压梯度），气流减速扩压。
-    \item 不同攻角下 $C_p$ 分布形态相似，但正攻角时吸力面和压力面的压差增大（负荷增大），负攻角时压差减小。
-\end{enumerate}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/exp4_pressure_45.05Hz.png}
+    \caption{叶片表面静压分布（45.05 Hz）}
+    \label{fig:pressure_45}
+\end{figure}
 
 \subsubsection{等熵马赫数分布}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/exp4_mach_distribution.png}
-    \caption{叶片表面等熵马赫数分布（-5\textdegree, 0\textdegree, +5\textdegree~攻角）}
-    \label{fig:mach}
+    \includegraphics[width=\textwidth]{figures/exp4_mach_50Hz.png}
+    \caption{叶片表面等熵马赫数分布（50 Hz）}
+    \label{fig:mach_50}
 \end{figure}
 
-图~\ref{fig:mach} 展示了三个攻角下吸力面和压力面沿弦向的 $Ma$ 分布。可以看出：
-\begin{enumerate}
-    \item 吸力面马赫数沿弦向先增大后减小，在前缘附近出现吸力峰（最大马赫数），反映气流在叶片前缘的强烈加速过程。
-    \item 压力面马赫数沿弦向单调下降，气流持续减速扩压。
-    \item 正攻角时吸力峰更突出（Ma更高），说明前缘附近的气流加速更强，但也意味着更大的逆压梯度（下游减速更剧烈），附面层分离的风险增大。
-    \item 负攻角时压力面和吸力面的马赫数差值减小，叶片气动负荷降低。
-\end{enumerate}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/exp4_mach_45.05Hz.png}
+    \caption{叶片表面等熵马赫数分布（45.05 Hz）}
+    \label{fig:mach_45}
+\end{figure}
 
-\subsubsection{结果讨论}
+\subsubsection{结果分析}
 
 \begin{enumerate}
-    \item \textbf{载荷分布特征}：NACA-65 叶型属于典型的压气机控制扩散叶型，其吸力面马赫数分布呈"前加载"特征——最大马赫数出现在前缘附近，之后逐步减速扩压，避免在吸力面出现强激波（跨音速时）或强逆压梯度导致的分离。
-    \item \textbf{攻角影响}：增大攻角使叶片负荷增大（吸力面-压力面压差增大），但也使吸力面逆压梯度增强，超过临界攻角时可能导致附面层分离和性能急剧恶化。
-    \item \textbf{设计意义}：叶片表面压力分布实验是叶型设计和优化的基本手段，通过调整叶型中弧线和厚度分布可以控制表面马赫数分布，达到扩压能力与损失之间的最优折中。
+    \item 吸力面静压低于压力面，两者之差构成叶片的气动负荷。吸力面前缘（$x/b = 1/7$）处静压最低，为吸力峰位置，气流在此处加速最大。
+    \item 从 $x/b = 2/7$ 往后，吸力面静压逐渐回升，气流进入逆压梯度区减速扩压。
+    \item 等熵马赫数分布与静压分布对应：吸力面马赫数高于压力面，前缘处马赫数达到峰值。
+    \item 50 Hz 与 45.05 Hz 两组数据的分布形态相似，50 Hz 组的马赫数整体略高，符合来流速度随风机频率增大而增大的预期。
 \end{enumerate}
 
 \subsection{结论}
 
-通过平面叶栅叶片表面压力分布测量，成功获取了NACA-65叶型在 $-5\textdegree$、$0\textdegree$、$+5\textdegree$ 三个攻角下的静压系数和等熵马赫数分布。吸力面前缘的吸力峰特征和后部的逆压梯度分布符合典型压气机叶型的流动规律。攻角增大使叶片负荷增大但逆压梯度增强，印证了叶栅气动设计中"负荷-损失"折中的基本理念。
+通过平面叶栅叶片表面压力分布测量，在两组风机频率和三个攻角条件下获取了NACA-65叶型的静压分布和等熵马赫数分布。表中归一化静压 $\overline{P}$ 和曲线图共同验证了吸力面前缘吸力峰、后部逆压梯度区等典型压气机叶型流动特征。攻角增大使叶片负荷增大但逆压梯度增强，频率降低使来流马赫数整体减小，均符合叶栅气动理论预期。
