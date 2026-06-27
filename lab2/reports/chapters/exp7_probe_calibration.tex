@@ -20,7 +20,7 @@
 
 三孔探针有两种工作模式：
 \begin{itemize}
-    \item \textbf{对向测量法}：旋转探针使孔1和孔3压力相等，此时孔2正对来流，孔2读数即为总压，探针转角即为气流角。精度高但操作慢。
+    \item \textbf{对向测量法}：旋转探针使孔1和孔3压力 相等，此时孔2正对来流，孔2读数即为总压，探针转角即为气流角。精度高但操作慢。
     \item \textbf{非对向测量法（固定测量法）}：探针固定安装，同时采集三个孔的压力，利用预先标定的标定曲线反算气流参数。效率高，适合流场扫描。
 \end{itemize}
 
@@ -61,13 +61,13 @@
     K_v &= \frac{P^* - P}{2P_2 - P_3 - P_1}
 \end{align}
 
-式中 $P_1$、$P_2$、$P_3$ 为三孔探针各孔压力，$P^*$ 为风洞来流总压，$P$ 为来流静压。$K_\alpha$ 反映左右两孔压力差与动压的相对关系，与迎角近似呈线性关系；$K_t$ 为中心孔总压与真实来流总压的偏差；$K_v$ 为速度系数。
+式中 $P_1$、$P_2$、$P_3$ 为三孔探针各孔压力，$P^*$ 为风洞来流总压，$P$ 为来流静压。
 
 \subsection{数据处理结果及分析}
 
 \subsubsection{实验数据}
 
-实验在来流马赫数 0.2 条件下进行，偏航角范围 $-25° \sim +25°$，间隔 $5°$。大气环境数据及风洞来流条件见表格标题。
+实验在来流马赫数 0.2 条件下进行，偏航角范围 $-25° \sim +25°$，间隔 $5°$。
 
 \input{tables/table_exp7_calibration.tex}
 
@@ -80,29 +80,13 @@
     \label{fig:cal}
 \end{figure}
 
-图~\ref{fig:cal} 展示了 $\pm 25\textdegree$ 范围内三个标定系数的变化。
+图~\ref{fig:cal} 和表~\ref{tab:exp7_calibration} 展示了 $\pm 25\textdegree$ 范围内三个标定系数的变化。
 
 \subsubsection{结果分析}
 
 \begin{enumerate}
-    \item \textbf{$K_\alpha$ 特性}：
-    \begin{itemize}
-        \item $K_\alpha$ 与迎角 $\alpha$ 在 $\pm 25\textdegree$ 范围内近似线性关系，零点附近过零（$\alpha = 0\textdegree$ 时 $K_\alpha \approx 0$）。
-        \item 线性斜率取决于探针孔1和孔3的几何夹角（两孔轴线与孔2轴线的夹角，通常为 $\pm 30\textdegree \sim \pm 45\textdegree$）。夹角越大，$K_\alpha$ 的灵敏度越高。
-        \item $K_\alpha$ 的线性度决定了方向测量的精度和角度适用范围。
-    \end{itemize}
-    \item \textbf{$K_t$ 和 $K_v$ 特性}：
-    \begin{itemize}
-        \item $K_t$ 和 $K_v$ 在零迎角附近近似为常数，随 $|\alpha|$ 增大而略有变化。
-        \item $K_t \approx 0$（零迎角时孔2测得的总压与真实总压一致），随迎角增大孔2偏离来流方向，$K_t$ 绝对值增大。
-        \item $K_v$ 的变化反映探针对不同来流角的动压响应差异。
-    \end{itemize}
-    \item \textbf{标定曲线的工程应用}：
-    \begin{itemize}
-        \item 实际测量时，探针固定安装，同时采集 $P_1$, $P_2$, $P_3$ 三个压力值。
-        \item 计算 $K_\alpha = (P_1 - P_3)/(P_2 - P_{\text{avg}})$，根据 $K_\alpha$ 反查标定曲线获取对应的迎角 $\alpha$。
-        \item 根据 $\alpha$ 进一步查取 $K_t$ 和 $K_v$，修正总压和速度：$P_t = P_2 + K_t(P_2 - P_{\text{avg}})$，$P_t - P_s = K_v(P_2 - P_{\text{avg}})$。
-    \end{itemize}
+    \item \textbf{$K_\alpha$ 特性}：$K_\alpha$ 在 $\pm 25\textdegree$ 范围内与迎角近似线性，过零点对应 $\alpha \approx 0\textdegree$，线性度良好，可用于方向测量。
+    \item \textbf{$K_t$ 和 $K_v$ 特性}：$K_t$ 在零迎角附近接近 0（孔2测压与真实总压一致），随 $|\alpha|$ 增大而上升；$K_v$ 在零迎角附近最大，两侧略有下降，反映探针对不同来流角的动压响应变化。
 \end{enumerate}
 
 \subsection{思考题}
