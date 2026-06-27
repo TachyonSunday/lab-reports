@@ -131,7 +131,7 @@ def plot_wake(results):
             ax1.plot(r['X'], r['P2_abs'], 'o-', color=c, label=label, markersize=4)
     ax1.set_xlabel("$X$ (cm)")
     ax1.set_ylabel("$v$ (m/s)" if has_v else "$P_2^*$ (Pa)")
-    ax1.set_title("尾迹速度分布" if has_v else "尾迹总压分布")
+    ax1.set_title("尾迹总压分布")
     ax1.legend(); ax1.grid(True, alpha=0.3)
     if has_v:
         ax2.set_xlabel("$X$ (cm)"); ax2.set_ylabel("$v/v_{\\max}$"); ax2.set_title("无量纲速度亏损")

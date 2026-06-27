@@ -42,27 +42,6 @@
 
 \subsection{数据处理方法}
 
-\subsubsection{速度计算（不可压缩伯努利方程）}
-
-\begin{equation}
-    v = \sqrt{\frac{2(P_2^* - P_2)}{\rho}}
-\end{equation}
-
-\begin{equation}
-    \rho = \frac{P_{\text{atm}}}{R \cdot T_{\text{atm}}}, \quad R = 287.058\ \text{J/(kg·K)}
-\end{equation}
-
-式中 $P_2^*$ 为探针测得的当地总压，$P_2$ 为出口截面静压。
-
-\subsubsection{无量纲速度亏损}
-
-以主流区最大速度 $v_{\max}$ 进行无量纲化：
-\begin{equation}
-    \bar{v} = \frac{v}{v_{\max}}
-\end{equation}
-
-尾迹区对应 $\bar{v} < 1$，尾迹中心对应最小 $\bar{v}$ 值。
-
 \subsection{数据处理结果及分析}
 
 \subsubsection{实验数据}
@@ -71,12 +50,12 @@
 
 \input{tables/table_exp6_45_Hz.tex}
 
-\subsubsection{尾迹速度分布}
+\subsubsection{尾迹总压分布}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{figures/exp6_wake_velocity.png}
-    \caption{叶栅出口尾迹速度分布（沿栅距方向扫描）}
+    \caption{叶栅出口尾迹总压分布}
     \label{fig:wake}
 \end{figure}
 
