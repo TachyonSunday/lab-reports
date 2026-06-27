@@ -17,7 +17,6 @@
 
 用法：
     python exp5_attack_angle.py
-    python exp5_attack_angle.py --real
 """
 
 import sys
@@ -34,91 +33,28 @@ OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "reports", "figures")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # NACA-65 叶栅几何参数
-BETA1_GEOM = 35.6  # 进口几何角 (°)
-BETA2_GEOM = 85.6  # 出口几何角 (°)
-
-
-def calc_turning_angle(probe_angles):
-    """计算气流转折角 Δβ = β2 - β1。"""
-    beta2 = np.mean(probe_angles)
-    return beta2
-
-
-def calc_loss_coefficient(P1_star, P2_star_list, P1):
-    """计算总压损失系数 ω = (P1* - P2*) / (P1* - P1)。"""
-    P2_star_avg = np.mean(P2_star_list)
-    return (P1_star - P2_star_avg) / (P1_star - P1)
-
-
-def generate_mock_data():
-    """生成模拟的攻角特性数据（基于典型 NACA-65 叶栅特性）。"""
-    np.random.seed(123)
-    attack_angles = np.array([-15, -10, -5, 0, 5, 7])
-
-    # 典型的攻角特性
-    # 转折角随攻角增大而增大（近似线性）
-    delta_beta = 50.0 + 0.8 * attack_angles + np.random.randn(len(attack_angles)) * 1.5
-    # 损失系数在设计攻角（0°）附近最小，偏离设计点增大
-    omega = 0.03 + 0.001 * (attack_angles - 0) ** 2 + np.abs(attack_angles) * 0.002
-    omega += np.random.randn(len(attack_angles)) * 0.003
-
-    # 进口条件
-    P1_star = np.full(len(attack_angles), 102000)
-    P1 = np.full(len(attack_angles), 100000)
-
-    rows = []
-    for i, alpha in enumerate(attack_angles):
-        # 出口 4 个测点
-        P2_star_vals = P1_star[i] - omega[i] * (P1_star[i] - P1[i]) + np.random.randn(4) * 5
-        # 出口气流角
-        beta2_base = BETA1_GEOM + delta_beta[i]
-        beta2_vals = beta2_base + np.random.randn(4) * 0.5
-        turntable_angle = alpha + BETA1_GEOM - 25
-
-        rows.append({
-            "attack_angle": alpha,
-            "turntable_angle": turntable_angle,
-            "P1_star": P1_star[i],
-            "P1_static": P1[i],
-            "P2_star_1": P2_star_vals[0],
-            "P2_star_2": P2_star_vals[1],
-            "P2_star_3": P2_star_vals[2],
-            "P2_star_4": P2_star_vals[3],
-            "P2_static_1": P2_star_vals[0] * 0.99,
-            "P2_static_2": P2_star_vals[1] * 0.99,
-            "P2_static_3": P2_star_vals[2] * 0.99,
-            "P2_static_4": P2_star_vals[3] * 0.99,
-            "probe_angle_1": beta2_vals[0],
-            "probe_angle_2": beta2_vals[1],
-            "probe_angle_3": beta2_vals[2],
-            "probe_angle_4": beta2_vals[3],
-        })
-
-    return pd.DataFrame(rows)
-
-
 def load_real_data():
+    """从 CSV 加载实验五数据"""
     data_dir = os.path.join(os.path.dirname(__file__), "..", "data")
     filepath = find_data_file(data_dir, "exp5_attack_angle")
     if filepath is None:
         return None
     print(f"  📂 读取: {filepath}")
-    df = read_lab_data(filepath).dropna(how="all")
+    df = pd.read_csv(filepath, comment="#", encoding="utf-8-sig").dropna(how="all")
+    if df.empty:
+        return None
+    df = df.dropna(subset=["P2_star"])
     return df if not df.empty else None
 
 
 def process_data(df):
-    """从原始数据计算转折角和损失系数。"""
+    """从原始数据计算转折角和损失系数（新格式：单值 P2* 和 βout）。"""
     results = []
     for _, row in df.iterrows():
-        P2_star_list = [row[f"P2_star_{i}"] for i in range(1, 5)]
-        probe_angles = [row[f"probe_angle_{i}"] for i in range(1, 5)]
-
-        beta2 = calc_turning_angle(probe_angles)
-        # β1 = 25° + turntable_angle
-        beta1 = 25 + row["turntable_angle"]
-        delta_beta = beta2 - beta1
-        omega = calc_loss_coefficient(row["P1_star"], P2_star_list, row["P1_static"])
+        beta1 = 25.0 + row["beta_in"]              # β1 = 25° + 转盘刻度
+        beta2 = row["beta_out"]                     # β2 = 探针出口气流角
+        delta_beta = beta2 - beta1                  # Δβ
+        omega = (row["P1_star"] - row["P2_star"]) / (row["P1_star"] - row["P1"])  # ω̄
 
         results.append({
             "attack_angle": row["attack_angle"],
@@ -161,20 +97,11 @@ def plot_attack_characteristics(df):
 
 
 def main():
-    use_real = "--real" in sys.argv
-
-    if use_real:
-        print("📂 读取真实数据...")
-        df = load_real_data()
-    else:
-        df = None
-
+    print("📂 读取实验数据...")
+    df = load_real_data()
     if df is None:
-        if use_real:
-            print("[警告] 无法读取真实数据，使用模拟数据。")
-        else:
-            print("🔧 使用模拟数据...")
-        df = generate_mock_data()
+        print("❌ 未找到有效数据，请将数据填入 data/exp5_attack_angle.csv 后重试。")
+        sys.exit(1)
 
     print(f"   攻角范围: {sorted(df['attack_angle'].unique())}°")
     plot_attack_characteristics(df)
