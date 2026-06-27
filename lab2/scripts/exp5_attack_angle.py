@@ -52,7 +52,7 @@ def process_data(df):
     results = []
     for _, row in df.iterrows():
         beta1 = 25.0 + row["beta_in"]              # β1 = 25° + 转盘刻度
-        beta2 = row["beta_out"]                     # β2 = 探针出口气流角
+        beta2 = 90.0 - row["beta_out"]              # β2 = 90° - βout
         delta_beta = beta2 - beta1                  # Δβ
         omega = (row["P1_star"] - row["P2_star"]) / (row["P1_star"] - row["P1"])  # ω̄
 
