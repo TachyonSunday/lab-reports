@@ -1,19 +1,7 @@
 ﻿# 平面叶栅攻角特性测量 — 数据记录表
-# 测量不同攻角下的叶栅出口流动参数
-#
-# attack_angle: 攻角 i (°) — 实验取 -15°, -10°, -5°, 0°, 5°, 7°
-# P1_star: 叶栅前总压 P1* (Pa) — 各攻角共用，填在第一行
-# P1_static: 叶栅前静压 P1 (Pa)
-# 出口沿栅距测 4 个点取平均：
-#   P2_star_1~4: 三孔探针孔2读数（出口总压），4个栅距位置
-#   P2_static_1~4: 出口静压 (Pa)
-#   probe_angle_1~4: 探针转台示数 β (°)
-#   turntable_angle: 转盘刻度 (°)
-#
-attack_angle(deg),turntable_angle(deg),P1_star(Pa),P1_static(Pa),P2_star_1(Pa),P2_star_2(Pa),P2_star_3(Pa),P2_star_4(Pa),P2_static_1(Pa),P2_static_2(Pa),P2_static_3(Pa),P2_static_4(Pa),probe_angle_1(deg),probe_angle_2(deg),probe_angle_3(deg),probe_angle_4(deg)
--15,25.6,,,,,,,,,,,,,,
--10,20.6,,,,,,,,,,,,,,
--5,15.6,,,,,,,,,,,,,,
-0,10.6,,,,,,,,,,,,,,
-5,5.6,,,,,,,,,,,,,,
-7,3.6,,,,,,,,,,,,,,
+# 工作频率：45 Hz，P1*、P1 同一攻角下共用
+attack_angle,beta_in,P2_star,beta_out,P1_star,P1
+-10,20.6,,,,,
+-5,15.6,,,,,
+0,10.6,,,,,
+5,5.6,,,,,
