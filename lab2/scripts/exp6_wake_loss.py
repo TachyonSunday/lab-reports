@@ -32,49 +32,68 @@ def load_data():
         print(f"❌ 数据文件不存在: {csv_path}")
         sys.exit(1)
     df = pd.read_csv(csv_path, comment="#", encoding="utf-8-sig").dropna(how="all")
+    # 列名映射
+    rename = {}
+    for c in df.columns:
+        if '频率' in c or c.strip().endswith('Hz'): rename[c] = 'group'
+        elif 'X' in c: rename[c] = 'X'
+        elif 'P2' in c: rename[c] = 'P2_star'
+        elif 'atm' in c.lower(): rename[c] = 'P_atm'
+        elif 'in' in c.lower() and 'static' in c.lower(): rename[c] = 'P_in_static'
+    df = df.rename(columns=rename)
+    if 'group' not in df.columns: print("❌ 缺少分组列"); sys.exit(1)
+    if 'P2_star' not in df.columns: print("❌ 缺少 P2_star 列"); sys.exit(1)
     df = df.dropna(subset=["P2_star"])
-    if df.empty:
-        print("❌ 无有效数据")
-        sys.exit(1)
+    # 频率值 → 组标签
+    df['group'] = df['group'].apply(lambda x: f"{float(x):.0f} Hz" if 'Hz' not in str(x) and x != '' else str(x))
+    df = df.sort_values(["group", "X"])
+    if df.empty: print("❌ 无有效数据"); sys.exit(1)
     return df
 
 
 def process(df):
     """计算速度和速度比"""
     results = {}
+    has_P_in = 'P_in_static' in df.columns and not df['P_in_static'].isna().all()
+    T_atm = 293.15
     for group, gdf in df.groupby("group"):
         P_atm = gdf["P_atm"].values[0]
-        P_in_gauge = gdf["P_in_static"].values[0]
-        T_atm = 293.15  # 默认，实际应从 CSV 读取或单独记录
         rho = P_atm / (R_AIR * T_atm)
-
-        P_in_abs = P_atm + P_in_gauge
         P2_abs = P_atm + gdf["P2_star"].values
-        dp = np.maximum(P2_abs - P_in_abs, 0)
-        v = np.sqrt(2 * dp / rho)
-        v_ratio = v / np.max(v)
+
+        if has_P_in:
+            P_in_abs = P_atm + gdf["P_in_static"].values[0]
+            dp = np.maximum(P2_abs - P_in_abs, 0)
+            v = np.sqrt(2 * dp / rho)
+        else:
+            v = np.zeros(len(P2_abs))
 
         results[group] = {
             'X': gdf["X"].values,
             'P2_star': gdf["P2_star"].values,
+            'P2_abs': P2_abs,
             'v': v,
-            'v_ratio': v_ratio,
+            'v_ratio': v / np.max(v) if np.max(v) > 0 else np.ones(len(v)),
             'P_atm': P_atm,
+            'has_v': has_P_in,
         }
-        print(f"  {group}: {len(gdf)} 点, v_max={np.max(v):.1f} m/s")
+        info = f"{len(gdf)} 点"
+        if has_P_in: info += f", v_max={np.max(v):.1f} m/s"
+        print(f"  {group}: {info}")
     return results
 
 
 def generate_tables(df):
     """生成三线表"""
+    has_P_in = 'P_in_static' in df.columns and not df['P_in_static'].isna().all()
     for group, gdf in df.groupby("group"):
         P_atm = int(gdf["P_atm"].values[0])
-        P_in = int(gdf["P_in_static"].values[0])
+        P_in_str = f", $P_{{\\text{{in}}}}={int(gdf['P_in_static'].values[0])}$ Pa" if has_P_in else ""
         lines = []
         lines.append(r"\begin{table}[H]")
         lines.append(r"  \centering")
         short = f"{group} 尾迹扫描数据"
-        long = f"{group}，$P_{{\\text{{atm}}}}={P_atm}$ Pa, $P_{{\\text{{in}}}}={P_in}$ Pa"
+        long = f"{group}，$P_{{\\text{{atm}}}}={P_atm}$ Pa{P_in_str}"
         lines.append(r"  \caption[" + short + "]{" + long + "}")
         lines.append(r"  \label{tab:exp6_" + group.replace(' ', '_') + "}")
         lines.append(r"  \renewcommand{\arraystretch}{1.2}")
@@ -94,17 +113,29 @@ def generate_tables(df):
 
 
 def plot_wake(results):
-    """绘制尾迹速度分布"""
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 7))
-    colors = {'组1': '#1f77b4', '组2': '#d62728'}
+    """绘制尾迹分布"""
+    has_v = any(r.get('has_v', False) for r in results.values())
+    if has_v:
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 7))
+    else:
+        fig, ax1 = plt.subplots(figsize=(10, 5))
+    colors = {}
+    for i, label in enumerate(results.keys()):
+        colors[label] = plt.cm.tab10(i)
     for label, r in results.items():
-        c = colors.get(label, '#333')
-        ax1.plot(r['X'], r['v'], 'o-', color=c, label=label, markersize=4)
-        ax2.plot(r['X'], r['v_ratio'], 's-', color=c, label=label, markersize=4)
-    ax1.set_xlabel("$X$ (cm)"); ax1.set_ylabel("$v$ (m/s)"); ax1.set_title("尾迹速度分布")
+        c = colors[label]
+        if has_v:
+            ax1.plot(r['X'], r['v'], 'o-', color=c, label=label, markersize=4)
+            ax2.plot(r['X'], r['v_ratio'], 's-', color=c, label=label, markersize=4)
+        else:
+            ax1.plot(r['X'], r['P2_abs'], 'o-', color=c, label=label, markersize=4)
+    ax1.set_xlabel("$X$ (cm)")
+    ax1.set_ylabel("$v$ (m/s)" if has_v else "$P_2^*$ (Pa)")
+    ax1.set_title("尾迹速度分布" if has_v else "尾迹总压分布")
     ax1.legend(); ax1.grid(True, alpha=0.3)
-    ax2.set_xlabel("$X$ (cm)"); ax2.set_ylabel("$v/v_{\\max}$"); ax2.set_title("无量纲速度亏损")
-    ax2.legend(); ax2.grid(True, alpha=0.3); ax2.axhline(1.0, color='gray', linestyle=':', alpha=0.5)
+    if has_v:
+        ax2.set_xlabel("$X$ (cm)"); ax2.set_ylabel("$v/v_{\\max}$"); ax2.set_title("无量纲速度亏损")
+        ax2.legend(); ax2.grid(True, alpha=0.3); ax2.axhline(1.0, color='gray', linestyle=':', alpha=0.5)
     fig.tight_layout()
     plot_style.save_figure(fig, os.path.join(FIG_DIR, "exp6_wake_velocity"), ("png",))
     print("  ✓ 图表: exp6_wake_velocity.png")
