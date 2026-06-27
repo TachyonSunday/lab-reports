@@ -1,16 +1,18 @@
-\begin{table}[H]
-  \centering
-  \caption[45Hz 攻角特性实验数据]{45 Hz，$P_1^*=220$ Pa, $P_1=-90$ Pa}
-  \label{tab:exp5_attack_angle}
-  \renewcommand{\arraystretch}{1.2}
-  \begin{tabular}{cccccccc}
-    \toprule
-    攻角 $i$ (°) & $\beta_{\text{in}}$ (°) & $P_2^*$ (Pa) & $\beta_{\text{out}}$ (°) & $\beta_1$ (°) & $\beta_2$ (°) & $\Delta\beta$ (°) & $\overline{\omega}$ \\
-    \midrule
-    -10 & 20.6 & 200 & 14.0 & 45.6 & 76.0 & 30.4 & 0.0645 \\
-    -5 & 15.6 & 240 & 16.0 & 40.6 & 74.0 & 33.4 & 0.0000 \\
-    0 & 10.6 & 230 & 16.7 & 35.6 & 73.3 & 37.7 & 0.0303 \\
-    5 & 5.6 & 210 & 16.0 & 30.6 & 74.0 & 43.4 & 0.0323 \\
-    \bottomrule
-  \end{tabular}
+\begin{table}[htbp]
+    \centering
+    \caption{45 Hz 攻角特性实验数据}
+    \label{tab:45hz_data}
+    % 使用 resizebox 将表格限制在页面宽度内
+    \resizebox{\textwidth}{!}{ 
+        \begin{tabular}{cccccccccc}
+            \toprule
+            攻角 $i$ ($^\circ$) & $\beta_{\text{in}}$ ($^\circ$) & $P_1^*$ (Pa) & $P_1$ (Pa) & $P_2^*$ (Pa) & $\beta_{\text{out}}$ ($^\circ$) & $\beta_1$ ($^\circ$) & $\beta_2$ ($^\circ$) & $\Delta\beta$ ($^\circ$) & $\bar{\omega}$ \\
+            \midrule
+            -10 & 20.6 & 220 & -90 & 200 & 14.0 & 45.6 & 76.0 & 30.4 & 0.0645 \\
+            -5  & 15.6 & 240 & -90 & 240 & 16.0 & 40.6 & 74.0 & 33.4 & 0.0000 \\
+            0   & 10.6 & 240 & -90 & 230 & 16.7 & 35.6 & 73.3 & 37.7 & 0.0303 \\
+            5   & 5.6  & 220 & -90 & 210 & 16.0 & 30.6 & 74.0 & 43.4 & 0.0323 \\
+            \bottomrule
+        \end{tabular}
+    }
 \end{table}
