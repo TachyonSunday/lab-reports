@@ -68,10 +68,9 @@ def plot_throttle(df):
     axes = axes.flatten()
     for ax, (col, x, yl, xl) in zip(axes, curves):
         ax.plot(x, thr[col].values, 'o-', markersize=6)
-        ax.set_xlabel(xl); ax.set_ylabel(yl); ax.grid(True, alpha=0.3)
+        ax.set_xlabel(xl, fontsize=13); ax.set_ylabel(yl, fontsize=13); ax.grid(True, alpha=0.3)
     # 隐藏第8个空子图
     axes[-1].set_visible(False)
-    fig.suptitle("发动机节流特性曲线", fontsize=16, y=1.01)
     fig.tight_layout()
     fig.savefig(os.path.join(FIG_DIR, "exp1_throttle_characteristics.png"), dpi=200)
     plt.close()
@@ -90,8 +89,7 @@ def plot_afterburner(df):
     fig, axes = plt.subplots(1, 3, figsize=(15, 4.5))
     for ax, (col, yl) in zip(axes, curves):
         ax.plot(x, af[col].values, 's-', color='#d62728', markersize=8)
-        ax.set_xlabel("油门杆位置"); ax.set_ylabel(yl); ax.grid(True, alpha=0.3)
-    fig.suptitle("发动机加力特性曲线", fontsize=16, y=1.02)
+        ax.set_xlabel("油门杆位置", fontsize=13); ax.set_ylabel(yl, fontsize=13); ax.grid(True, alpha=0.3)
     fig.tight_layout()
     fig.savefig(os.path.join(FIG_DIR, "exp1_afterburner_characteristics.png"), dpi=200)
     plt.close()
