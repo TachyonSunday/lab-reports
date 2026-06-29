@@ -69,13 +69,13 @@ def plot_throttle(df):
     n2 = thr['n2'].values
 
     curves = [
-        ('F_N', n1, 'F (N)', '$n_1$'),
-        ('alpha1', n1, '$\\alpha_1$ (°)', '$n_1$'),
-        ('pi_c', n2, '$\\pi_c^*$', '$n_2$'),
-        ('alpha2', n2, '$\\alpha_2$ (°)', '$n_2$'),
-        ('F_N', n2, 'F (N)', '$n_2$'),
-        ('sfc', n2, 'sfc (h$^{-1}$)', '$n_2$'),
-        ('ma', n2, '$m_a$ (kg/s)', '$n_2$'),
+        ('F_N', n1, 'F (N)', '$n_{1\\mathrm{cor}}$'),
+        ('alpha1', n1, '$\\alpha_1$ (°)', '$n_{1\\mathrm{cor}}$'),
+        ('pi_c', n2, '$\\pi_c^*$', '$n_{2\\mathrm{cor}}$'),
+        ('alpha2', n2, '$\\alpha_2$ (°)', '$n_{2\\mathrm{cor}}$'),
+        ('F_N', n2, 'F (N)', '$n_{2\\mathrm{cor}}$'),
+        ('sfc', n2, 'sfc (h$^{-1}$)', '$n_{2\\mathrm{cor}}$'),
+        ('ma', n2, '$m_a$ (kg/s)', '$n_{2\\mathrm{cor}}$'),
     ]
 
     fig, axes = plt.subplots(4, 2, figsize=(14, 14))
@@ -93,7 +93,7 @@ def plot_throttle(df):
 def plot_afterburner(df):
     """加力特性曲线（后5行）"""
     af = df.iloc[8:]
-    x = range(len(af))
+    x = af['alpha0'].values
     curves = [
         ('F_N', '加力推力 F (N)'),
         ('sfc', '加力耗油率 sfc (h$^{-1}$)'),
@@ -102,7 +102,7 @@ def plot_afterburner(df):
     fig, axes = plt.subplots(1, 3, figsize=(15, 4.5))
     for ax, (col, yl) in zip(axes, curves):
         ax.plot(x, af[col].values, 's-', color='#d62728', markersize=8)
-        ax.set_xlabel("油门杆位置"); ax.set_ylabel(yl); ax.grid(True, alpha=0.3)
+        ax.set_xlabel("$a_0$"); ax.set_ylabel(yl); ax.grid(True, alpha=0.3)
     fig.tight_layout()
     fig.savefig(os.path.join(FIG_DIR, "exp1_afterburner_characteristics.png"), dpi=200)
     plt.close()
