@@ -12,10 +12,10 @@
     \begin{itemize}
         \item \textbf{节流特性曲线（必做）}
         \begin{align*}
-            F &= f(n_{1\text{cor}}) & \alpha_1 &= f(n_{1\text{cor}}) \\
-            \pi_c^* &= f(n_{2\text{cor}}) & \alpha_2 &= f(n_{2\text{cor}}) \\
-            F &= f(n_{2\text{cor}}) & \text{sfc} &= f(n_{2\text{cor}}) \\
-            m_a &= f(n_{2\text{cor}}) & T_4^* &= f(n_{2\text{cor}})
+            F &= f(n_{1}) & \alpha_1 &= f(n_{1}) \\
+            \pi_c^* &= f(n_{2}) & \alpha_2 &= f(n_{2}) \\
+            F &= f(n_{2}) & \text{sfc} &= f(n_{2}) \\
+            m_a &= f(n_{2})
         \end{align*}
         \item \textbf{加力特性曲线（选做）}
         \begin{align*}
@@ -57,15 +57,11 @@
 
 \subsection{数据记录}
 
-实验数据按附表1格式记录，包含慢车状态至加力状态共11个工作状态的完整参数。各工作状态依次为：慢车、N2=75\%、80\%、85\%、90\%、95\%、97\%、最大状态、加力状态（$a=0,1,2,3,4$）。
+实验数据按附表1格式记录，包含慢车状态至加力状态共13个工作状态的完整参数。
+
+\input{tables/table_exp1_trial.tex}
 
 \subsection{数据处理方法}
-
-\subsubsection{折合转速换算}
-
-\begin{equation}
-    n_{\text{cor}} = n \sqrt{\frac{288.15}{T_0}}
-\end{equation}
 
 \subsubsection{耗油率计算}
 
@@ -106,7 +102,6 @@
     \item 耗油率 sfc 在中等转速区域存在最优值，低转速下因部件效率降低导致 sfc 升高，高转速下因燃烧室油气比增大也使 sfc 增大。
     \item 压气机总压比 $\pi_c^*$ 随转速单调增加，反映压气机增压能力随转速增大而增强，符合离心力增压的基本原理。
     \item 空气流量 $m_a$ 随转速近似线性增长，进口导流叶片角度 $\alpha_1$、$\alpha_2$ 随转速减小以保持各级攻角在合理范围。
-    \item 涡轮后总温 $T_4^*$ 随转速升高，反映燃烧室供油量随推力需求增大而增加。
 \end{enumerate}
 
 \subsubsection{加力特性分析}
@@ -117,13 +112,6 @@
     \item 加力主要用于起飞、爬升、加速和超音速飞行等需要大推力的短时工况。
 \end{enumerate}
 
-\subsection{注意事项}
-
-\begin{enumerate}
-    \item 实验时，学生必须听从教师和实验室人员的指挥。未经同意，禁止学生自行操作实验室设备，以防发生意外。
-    \item 学生应细心操作实验系统的所有设备，爱护各种实验器材和测量仪表。
-    \item 本项实验为一大型试验项目的模拟设备，所有参加实验课的人员必须认真负责，实验中团结协作，做好各自的工作。
-\end{enumerate}
 
 \subsection{结论}
 
