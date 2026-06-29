@@ -20,13 +20,14 @@
         \item \textbf{加力特性曲线（选做）}
         \begin{align*}
             F_{af} &= f(\text{油门杆位置}) \\
-            \text{sfc}_{af} &= f(\text{油门杆位置}) 
+            \text{sfc}_{af} &= f(\text{油门杆位置}) \\
+            A_e &= f(\text{油门杆位置})
         \end{align*}
     \end{itemize}
     \item 能力培养：实际试验操作能力、团结协作能力、综合应用能力。
 \end{enumerate}
 
-\subsection{实验设备简介}
+\subsection{实验装置}
 
 该实验装置是一套发动机模拟试车系统，根据发动机地面台架试车台的功能进行模拟仿真，试车操作界面与实际发动机试车台基本相同。系统由油门杆、控制操作面板和计算机系统组成。
 
@@ -37,17 +38,30 @@
     \item 大气参数：$P_0$（大气压力）、$T_0$（大气温度）
     \item 性能参数：$F$（推力）、$W_f$（燃油消耗量）、$m_a$（空气流量）
     \item 转子参数：$n_1$（低压转子转速）、$n_2$（高压转子转速）
-    \item 截面参数：$P_2^*$、$T_2^*$（风扇出口）、$P_3^*$、$T_3^*$（压气机出口）、$P_5^*$（涡轮后）
-    \item 控制参数：$\alpha_1$、$\alpha_2$（导流叶片角度）
+    \item 截面参数：$P_2^*$、$T_2^*$（风扇出口）、$P_3^*$、$T_3^*$（压气机出口）、$P_5^*$、$T_5^*$（涡轮后）
+    \item 控制参数：$\alpha_1$、$\alpha_2$（导流叶片角度）、$A_t$（喷口喉道面积）
 \end{itemize}
 
-\subsection{数据记录列表}
+\subsection{实验程序}
+
+\begin{enumerate}
+    \item 三到五人结为一组，明确各人的具体分工。
+    \item 试车前认真学习《实验指导书》。
+    \item 熟悉试车程序和试验设备情况。
+    \item 准备好试车参数记录所需要的纸张和笔。
+    \item 严格按要求起动发动机，并通过油门操纵杆控制发动机进入不同的工作状态。
+    \item 当发动机稳定在某一发动机状态时，按记录表记录发动机性能数据。
+    \item 试验结束前对记录数据进行检查，对没有记录或记录数据不正确的个别测量点进行补测。
+    \item 试验结束后整理好试验设备。
+\end{enumerate}
+
+\subsection{数据记录}
 
 实验数据按附表1格式记录，包含慢车状态至加力状态共13个工作状态的完整参数。
 
 \input{tables/table_exp1_trial.tex}
 
-\subsection{数据处理方法说明}
+\subsection{数据处理方法}
 
 \subsubsection{耗油率计算}
 
@@ -61,7 +75,7 @@
     \pi_c^* = \frac{P_3^*}{P_2^*}
 \end{equation}
 
-\subsection{数据处理结果（曲线）及分析}
+\subsection{数据处理结果及分析}
 
 \subsubsection{节流特性曲线}
 
